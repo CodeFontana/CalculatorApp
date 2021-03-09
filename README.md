@@ -4,7 +4,7 @@ Functionally, this is nothing more than your basic calculator. However, beneath 
 # The Problem
 So many instructional videos (paid or free) demonstrate implementing MVVM using a framework, e.g. Caliburn Micro, MVVMLight, Prism, ReactiveUI, etc. While I don't doubt these frameworks are beneficial, the problem for me is they seem to work like *magic*. And when magic breaks or doesn't work properly, now I'm up the creek. 
 
-Thus I set out on a path to scrounge together, how do you implement MVVM, without a framework. Perhaps through a manual implementation, without relying on someone else's code, I could not only better understand MVVM, but understand why so many others go straight for a framework implementation. Who knows, by the end of this venture I could be embracing the usage of a framework, or maybe even I will discover I don't need one at all *shrug*.
+Thus I set out on a path to scrounge together, how do you implement MVVM, without a framework? Perhaps through a manual implementation, without relying on someone else's code, I could not only better understand MVVM, but understand why so many others go straight for a framework implementation. Who knows, by the end of this venture I could be embracing the usage of a framework, or maybe even I will discover I don't need one at all? *shrug*
 
 After all, if the MVVM design patter is so popular and so important, why has Microsoft not incorprated an MVVM framework implementation directly into the language? I need to find all this out for myself...
 
