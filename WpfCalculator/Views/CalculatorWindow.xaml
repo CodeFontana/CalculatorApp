@@ -6,14 +6,36 @@
         xmlns:local="clr-namespace:WpfCalculator.Views"
         xmlns:vm="clr-namespace:WpfCalculator.ViewModels"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=vm:CalculatorViewModel, IsDesignTimeCreatable=True}"
         Title="Calculator"
         Height="600"
         Width="400">
-    <Window.Resources>
-        <vm:CalculatorViewModel x:Key="vm" />
-    </Window.Resources>
+
+    <!-- 
+        The ViewModel for this Window has TWO contructors:
+            public CalculatorViewModel()
+            public CalculatorViewModel(IMathService mathService)
     
-    <Grid DataContext="{StaticResource vm}" Background="#212529">
+        The first one (default constructor) is used for design-time purposes, as
+        declared above by:
+            d:DataContext="{d:DesignInstance Type=vm:CalculatorViewModel, IsDesignTimeCreatable=True}"
+    
+        This allows for design data to be populated, e.g. digits on the calculator's
+        display, to facilitate development.
+    
+        At runtime, the non-default constructor is invoked from the App.xaml.cs file,
+        such that:
+            - A generic default Host is built.
+            - The View, ViewModel, and MathService are added to Dependency Injection.
+            - Prior to View.Show(), the View's DataContext is configured for the
+              ViewModel, with the MathService injected via the non-default constructor.
+    
+        This method allows us to wire up the app within the MVVM design principle,
+        and still take advantage of features like Dependency Injection, all WITHOUT
+        relying on an overly-complicated MVVM framework.
+    -->
+    
+    <Grid Background="#212529">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
@@ -42,7 +64,7 @@
                    Margin="10 0"
             Style="{StaticResource DisplayStyle}"/>
 
-        <!-- First Button Row 
+        <!--
         SERIOUS NOTE REGARDING BUTTON 'Command' and 'CommandParameter' ATTRIBUTES:
             IF YOUR IMPLEMENTATION OF ICOMMAND CONTAINS,
                 public event EventHandler CanExecuteChanged
@@ -71,6 +93,8 @@
             https://stackoverflow.com/questions/335849/wpf-commandparameter-is-null-first-time-canexecute-is-called
         -->
 
+        <!-- First Button Row -->
+        
         <Button x:Name="AcButton"
                 Grid.Column="0"
                 Grid.Row="1"

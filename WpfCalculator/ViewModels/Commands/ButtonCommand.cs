@@ -37,7 +37,7 @@ namespace WpfCalculator.ViewModels.Commands
         public void Execute(object parameter)
         {
             string buttonCmd = parameter as string;
-            CalculatorVM.PerformOperation(buttonCmd);
+            CalculatorVM.Calculate(buttonCmd);
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using WpfCalculator.Services;
+using WpfCalculator.ViewModels;
 using WpfCalculator.Views;
 
 namespace WpfCalculator
@@ -17,52 +18,49 @@ namespace WpfCalculator
     /// </summary>
     public partial class App : Application
 {
-        /// <summary>
-        /// Use .NET generic Host to encapsulate Dependency Injection (DI), Logging and Configuration.
-        /// Although in this example, we will only be taking advantage of DI.
-        /// </summary>
-        private IHost _host;
+		/// <summary>
+		/// Use .NET generic Host to encapsulate Dependency Injection (DI), Logging and Configuration.
+		/// Although in this example, we will only be taking advantage of DI (for the moment).
+		/// </summary>
+		private IHost _CalcHost;
 
-        /// <summary>
-        /// Default constructor for adding services to DI container.
-        /// </summary>
-        public App()
-        {
-            _host = new HostBuilder()
-                .ConfigureServices((context, services) =>
-                {
-                    services.AddSingleton<IMathService, MathService>();
-                    services.AddSingleton<CalculatorWindow>();
-                })
-                .Build();
-        }
+		/// <summary>
+		/// Override of OnStartup(), to build the Host and utilize Dependency Injection, and then
+		/// display the main Calculator View.
+		/// </summary>
+		/// <param name="e"></param>
+		protected override async void OnStartup(StartupEventArgs e)
+		{
+			base.OnStartup(e);
 
-        /// <summary>
-        /// Application startup, as specified in App.xaml, to start the Host and display
-        /// the Calculator window.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async void Application_Startup(object sender, StartupEventArgs e)
-        {
-            await _host.StartAsync();
+			_CalcHost = new HostBuilder()
+				.ConfigureServices((context, services) =>
+				{
+					services.AddSingleton<IMathService, MathService>();
+					services.AddSingleton<CalculatorViewModel>();
+					services.AddSingleton<CalculatorWindow>();
+				})
+				.Build();
 
-            var calcWindow = _host.Services.GetService<CalculatorWindow>();
-            calcWindow.Show();
-        }
+			await _CalcHost.StartAsync();
 
-        /// <summary>
-        /// Application exit, as specified in the App.xaml, to ensure the Host
-        /// is properly stopped.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async void Application_Exit(object sender, ExitEventArgs e)
-        {
-            using (_host)
-            {
-                await _host.StopAsync(TimeSpan.FromSeconds(5));
-            }
-        }
-    }
+			var calcWindow = _CalcHost.Services.GetService<CalculatorWindow>();
+			calcWindow.DataContext = _CalcHost.Services.GetService<CalculatorViewModel>();
+			calcWindow.Show();
+		}
+
+		/// <summary>
+		/// Override of OnExit(), to gracefully stop the host before exitting the
+		/// application.
+		/// </summary>
+		/// <param name="e"></param>
+		protected override async void OnExit(ExitEventArgs e)
+		{
+			using (_CalcHost)
+			{
+				await _CalcHost.StopAsync(TimeSpan.FromSeconds(5));
+			}
+			base.OnExit(e);
+		}
+	}
 }
