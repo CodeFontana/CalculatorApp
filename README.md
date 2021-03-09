@@ -6,7 +6,7 @@ So many instructional videos (paid or free) demonstrate implementing MVVM using 
 
 Thus I set out on a path to scrounge together, how do you implement MVVM, without a framework? Perhaps through a manual implementation, without relying on someone else's code, I could not only better understand MVVM, but understand why so many others go straight for a framework implementation. Who knows, by the end of this venture I could be embracing the usage of a framework, or maybe even I will discover I don't need one at all? *shrug*
 
-After all, if the MVVM design patter is so popular and so important, why has Microsoft not incorprated an MVVM framework implementation directly into the language? I need to find all this out for myself...
+After all, if the MVVM design pattern is so popular and so important, why has Microsoft not incorprated an MVVM framework implementation directly into the language? Dare I make a comparison to the Generic Host Builder as a container for Dependency Injection, Logging and Configuration? It's good to have lots of 3rd party and open-source options, but I need to discover MVVM for myself, and see where it takes me...
 
 # MVVM in WPF
 When working with WPF, it literally means the code-behind is nearly empty. That UI code is purely contained in the XAML, and the code-behind is virtually empty, less of course the InitializeComponent(). Yes, this doesn't mean you can't have anything in the code behind. Just keep reading...
@@ -24,10 +24,16 @@ So, why all this work to achieve separation of concerns? Why make something so s
 I'm glossing over several more benefits, such as the ability to do Unit Testing on the Model and ViewModel, completely separate from the View. This can be essential for Test-Driven-Development or really any app heading for Production in a proper organization.
 
 # Additonal Reading
-This is an EXCELLENT post on WHAT/WHY/WHEN, all about MVVM...
-https://stackoverflow.com/questions/2653096/why-use-mvvm
+This is an EXCELLENT post on WHAT/WHY/WHEN, all about MVVM...  
+https://stackoverflow.com/questions/2653096/why-use-mvvm  
 
 # In which layer of MVVM do I perform my Data Access?
 None of them! Data Access should be performed in a separate Class Library project. Each component of MVVM is about your UI. By performing your Data Access in a Class Library, you maintain the ability to replace your entire UI with another. For example, you could have a Blazor Server project with a Web-based UI, utilizing the same Data Access Library as your WPF UI. The 'Model' part of Model-View-ViewModel is for Models related to displaying data (obtained from Data Access) in your UI.
 
 Unfortunately this Calculator app is not the shining example of this concept. In the future I will look to pull-together a multi-UI app that uses a common Data Access library. For now, the topic is MVVM :-)
+
+# Generic Host Builder
+Speaking somewhere above about Microsoft's Generic Host Builder, as a Microsoft-provided container for Depencency Injection, Logging, & Configurtation-- I came across this wonderful article, with steps for wiring a WPF application to make excellent utilization of this:  
+https://laurentkempe.com/2019/09/03/WPF-and-dotnet-Generic-Host-with-dotnet-Core-3-0/  
+
+This is an excellent idea, and I've incorporated in this example, to inject the MainWindow (CalcWindow) and a simple class to use as a 'MathService'. This further allows us to decouple the core (and simple) mathematical functions, from our user interface. With the MathService injected as a separate component, it can easily be Unit Tested :-)
