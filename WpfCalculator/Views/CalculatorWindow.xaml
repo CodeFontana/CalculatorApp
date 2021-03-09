@@ -1,0 +1,236 @@
+﻿<Window x:Class="WpfCalculator.Views.CalculatorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfCalculator.Views"
+        xmlns:vm="clr-namespace:WpfCalculator.ViewModels"
+        mc:Ignorable="d"
+        Title="Calculator"
+        Height="600"
+        Width="400">
+    <Window.Resources>
+        <vm:CalculatorViewModel x:Key="vm" />
+    </Window.Resources>
+    
+    <Grid DataContext="{StaticResource vm}" Background="#212529">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+
+        <!-- Calculator Display -->
+
+        <TextBlock x:Name="Result"
+                   Grid.Column="0"
+                   Grid.Row="0"
+                   Grid.ColumnSpan="4"
+                   Text="{Binding ResultDisplay, Mode=OneWay}"
+                   TextAlignment="Right"
+                   VerticalAlignment="Bottom"
+                   Margin="10 0"
+            Style="{StaticResource DisplayStyle}"/>
+
+        <!-- First Button Row 
+        SERIOUS NOTE:
+            IF YOUR IMPLEMENTATION OF ICOMMAND CONTAINS,
+                public event EventHandler CanExecuteChanged
+                {
+                    add { CommandManager.RequerySuggested += value; }
+                    remove { CommandManager.RequerySuggested -= value; }
+                }       
+            THEN, order of the 'Command' and 'CommandParameter' attributes,
+            DOES NOT MATTER.
+        
+            HOWEVER, if your implementation of ICommand has only:
+                public event EventHandler CanExecuteChanged;
+            (WHICH IS THE DEFAULT CODE SNIPPET)
+            THEN, ORDER DOES MATTER!!!!!!!!!!!!!!!!!
+        
+            You will need to ensure the 'CommandParameter' attribute is
+            listed first, otherwise the 'Command' attribute will fire
+            CanExecute() with a NULL parameter, which will disable your
+            control.
+        
+            This feels like a bug with WPF. Either order should not matter,
+            or the default snippet for implementation of ICommand should be
+            changed.
+        
+            Information came from this post:
+            https://stackoverflow.com/questions/335849/wpf-commandparameter-is-null-first-time-canexecute-is-called
+        -->
+
+        <Button x:Name="AcButton"
+                Grid.Column="0"
+                Grid.Row="1"
+                Content="AC"
+                Command="{Binding CalculatorCommand}"
+                CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"
+                Style="{StaticResource SpecialStyle}"/>
+
+        <Button x:Name="NegButton"
+                Grid.Column="1"
+                Grid.Row="1"
+                Content="+/-"
+                CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"
+                Command="{Binding CalculatorCommand}"
+                Style="{StaticResource SpecialStyle}"/>
+
+        <Button x:Name="PercentageButton"
+                Grid.Column="2"
+                Grid.Row="1"
+                Content="%"
+                CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"
+                Command="{Binding CalculatorCommand}"
+                Style="{StaticResource SpecialStyle}"/>
+
+        <Button x:Name="DivButton"
+                Grid.Column="3"
+                Grid.Row="1"
+                Content="/"
+                CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"
+                Command="{Binding CalculatorCommand}"
+                Style="{StaticResource OperatorStyle}"/>
+
+        <!-- Second Button Row -->
+
+        <Button x:Name="SevenButton"
+                Grid.Column="0"
+                Grid.Row="2"
+                Content="7"
+                CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"
+                Command="{Binding CalculatorCommand}"
+                Style="{StaticResource DigitStyle}"/>
+
+        <Button x:Name="EightButton"
+                Grid.Column="1"
+                Grid.Row="2"
+                Content="8"
+                CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"
+                Command="{Binding CalculatorCommand}"
+                Style="{StaticResource DigitStyle}"/>
+
+        <Button x:Name="NineButton"
+                Grid.Column="2"
+                Grid.Row="2"
+                Content="9"
+                CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"
+                Command="{Binding CalculatorCommand}"
+                Style="{StaticResource DigitStyle}"/>
+
+        <Button x:Name="MultButton"
+                Grid.Column="3"
+                Grid.Row="2"
+                Content="x"
+                CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"
+                Command="{Binding CalculatorCommand}"
+                Style="{StaticResource OperatorStyle}"/>
+
+        <!-- Third Button Row -->
+
+        <Button x:Name="FourButton"
+                Grid.Column="0"
+                Grid.Row="3"
+                Content="4"
+                CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"
+                Command="{Binding CalculatorCommand}"
+                Style="{StaticResource DigitStyle}"/>
+
+        <Button x:Name="FiveButton"
+                Grid.Column="1"
+                Grid.Row="3"
+                Content="5"
+                CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"
+                Command="{Binding CalculatorCommand}"
+                Style="{StaticResource DigitStyle}"/>
+
+        <Button x:Name="SixButton"
+                Grid.Column="2"
+                Grid.Row="3"
+                Content="6"
+                CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"
+                Command="{Binding CalculatorCommand}"
+                Style="{StaticResource DigitStyle}"/>
+
+        <Button x:Name="MinusButton"
+                Grid.Column="3"
+                Grid.Row="3"
+                Content="-"
+                CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"
+                Command="{Binding CalculatorCommand}"
+                Style="{StaticResource OperatorStyle}"/>
+
+        <!-- Fourth Button Row -->
+
+        <Button x:Name="OneButton"
+                Grid.Column="0"
+                Grid.Row="4"
+                Content="1"
+                CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"
+                Command="{Binding CalculatorCommand}"
+                Style="{StaticResource DigitStyle}"/>
+
+        <Button x:Name="TwoButton"
+                Grid.Column="1"
+                Grid.Row="4"
+                Content="2"
+                CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"
+                Command="{Binding CalculatorCommand}"
+                Style="{StaticResource DigitStyle}"/>
+
+        <Button x:Name="ThreeButton"
+                Grid.Column="2"
+                Grid.Row="4"
+                Content="3"
+                CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"
+                Command="{Binding CalculatorCommand}"
+                Style="{StaticResource DigitStyle}"/>
+
+        <Button x:Name="PlusButton"
+                Grid.Column="3"
+                Grid.Row="4"
+                Content="+"
+                CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"
+                Command="{Binding CalculatorCommand}"
+                Style="{StaticResource OperatorStyle}"/>
+
+        <!-- Fifth Button Row -->
+
+        <Button x:Name="ZeroButton"
+                Grid.Column="0"
+                Grid.Row="5"
+                Grid.ColumnSpan="2"
+                Content="0"
+                CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"
+                Command="{Binding CalculatorCommand}"
+                Style="{StaticResource DigitStyle}"/>
+
+        <Button x:Name="DecButton"
+                Grid.Column="2"
+                Grid.Row="5"
+                Content="."
+                CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"
+                Command="{Binding CalculatorCommand}"
+                Style="{StaticResource DigitStyle}"/>
+
+        <Button x:Name="EqualButton"
+                Grid.Column="3"
+                Grid.Row="5"
+                Content="="
+                CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"
+                Command="{Binding CalculatorCommand}"
+                Style="{StaticResource OperatorStyle}"/>
+
+    </Grid>
+</Window>
