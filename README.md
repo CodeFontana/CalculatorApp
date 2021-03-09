@@ -36,4 +36,4 @@ Unfortunately this Calculator app is not the shining example of this concept. In
 Speaking somewhere above about Microsoft's Generic Host Builder, as a Microsoft-provided container for Depencency Injection, Logging, & Configurtation-- I came across this wonderful article, with steps for wiring a WPF application to make excellent utilization of this:  
 https://laurentkempe.com/2019/09/03/WPF-and-dotnet-Generic-Host-with-dotnet-Core-3-0/  
 
-This is an excellent idea, and I've incorporated in this example, to inject the MainWindow (CalcWindow) and a simple class to use as a 'MathService'. This further allows us to decouple the core (and simple) mathematical functions, from our user interface. With the MathService injected as a separate component, it can easily be Unit Tested :-)
+This is an excellent idea, so simple and so elegent, and I've incorporated in this example-- injecting the MainWindow (CalcWindow) and a simple class to use as a 'MathService'. This further allows us to decouple the core mathematical functions, from our user interface. With the MathService injected as a separate component, it can easily be Unit Tested :-)
