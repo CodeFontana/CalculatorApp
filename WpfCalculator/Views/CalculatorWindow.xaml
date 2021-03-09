@@ -43,7 +43,7 @@
             Style="{StaticResource DisplayStyle}"/>
 
         <!-- First Button Row 
-        SERIOUS NOTE:
+        SERIOUS NOTE REGARDING BUTTON 'Command' and 'CommandParameter' ATTRIBUTES:
             IF YOUR IMPLEMENTATION OF ICOMMAND CONTAINS,
                 public event EventHandler CanExecuteChanged
                 {
