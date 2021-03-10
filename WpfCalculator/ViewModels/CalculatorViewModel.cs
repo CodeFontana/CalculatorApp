@@ -20,14 +20,9 @@ namespace WpfCalculator.ViewModels
         private readonly IMathService MathService;
 
         /// <summary>
-        /// Lefthand value for math operations.
+        /// List of operands.
         /// </summary>
-        private double _leftNumber = 0;
-        
-        /// <summary>
-        /// Lefthand value for math operations.
-        /// </summary>
-        private double _rightNumber = 0;
+        private List<string> _operands;
 
         private MathOperation _SelectedOperation;
         /// <summary>
@@ -74,136 +69,160 @@ namespace WpfCalculator.ViewModels
         }
 
         /// <summary>
-        /// Default constructor to initialize main display of the calculator and wire up
-        /// event handling for this ViewModel.
+        /// Default constructor, only used in Design-Time mode, to display a sample value
+        /// on the calculator screen.
         /// </summary>
         public CalculatorViewModel()
         {
-            if (DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject()))
-            {
-                ResultDisplay = "8008";
-            }
-            else
-            {
-                ResultDisplay = "0";
-            }
-
             CalculatorCommand = new ButtonCommand(this);
+            _operands = new List<string>();
+            _operands.Add("8008");
+            ResultDisplay = _operands[^1];
         }
 
         /// <summary>
-        /// Non-Default constructor provides dependency injection.
+        /// Runtime constructor for the ViewModel.
         /// </summary>
+        /// <param name="mathService">Service that provides mathmatical functions.</param>
         public CalculatorViewModel(IMathService mathService)
         {
-            if (DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject()))
-            {
-                ResultDisplay = "8008";
-            }
-            else
-            {
-                ResultDisplay = "0";
-            }
-
-            CalculatorCommand = new ButtonCommand(this);
             MathService = mathService;
+            CalculatorCommand = new ButtonCommand(this);
+            _operands = new List<string>();
+            _operands.Add("0");
+            ResultDisplay = _operands[^1];
         }
 
         /// <summary>
-        /// Called by the ButtomCommand Execute() implementation and carries out the
-        /// requested mathematical function, based on the button pressed on the View.
+        /// Handles button presses from the View.
         /// </summary>
-        /// <param name="value">String representation of the button press from the View</param>
-        public void Calculate(string value)
+        /// <param name="buttonName">Name of button pushed on the View.</param>
+        public void ButtonPress(string buttonName)
         {
-            switch (value)
+            switch (buttonName)
             {
                 case "AC":
-                    _leftNumber = 0;
-                    _rightNumber = 0;
-                    SelectedOperation = MathOperation.Nothing;
-                    ResultDisplay = _leftNumber.ToString();
+                    _operands = new List<string>();
+                    _operands.Add("0");
+                    SelectedOperation = MathOperation.None;
+                    ResultDisplay = "0";
                     break;
                 case "+/-":
-                    if (_leftNumber != 0)
-                    {
-                        _leftNumber *= -1;
-                        ResultDisplay = _leftNumber.ToString();
-                    }
+                    _operands[^1] = (double.Parse(ResultDisplay) * -1).ToString();
+                    ResultDisplay = _operands[^1].ToString();
                     break;
                 case "%":
-                    if (_leftNumber != 0)
-                    {
-                        _leftNumber = MathService.Percent(_leftNumber);
-                        ResultDisplay = _leftNumber.ToString();
-                    }
+                    _operands[^1] = (double.Parse(ResultDisplay) / 100).ToString();
+                    ResultDisplay = _operands[^1].ToString();
                     break;
                 case "/":
                     SelectedOperation = MathOperation.Division;
+                    _operands[^1] = (double.Parse(ResultDisplay)).ToString();
+                    _operands.Add("");
                     break;
                 case "x":
                     SelectedOperation = MathOperation.Multiplication;
+                    _operands[^1] = (double.Parse(ResultDisplay)).ToString();
+                    _operands.Add("");
                     break;
                 case "-":
                     SelectedOperation = MathOperation.Subtraction;
+                    _operands[^1] = (double.Parse(ResultDisplay)).ToString();
+                    _operands.Add("");
                     break;
                 case "+":
                     SelectedOperation = MathOperation.Addition;
+                    _operands[^1] = (double.Parse(ResultDisplay)).ToString();
+                    _operands.Add("");
                     break;
                 case "=":
                     switch (SelectedOperation)
                     {
                         case MathOperation.Addition:
-                            _leftNumber = MathService.Add(_leftNumber, _rightNumber);
-                            ResultDisplay = _leftNumber.ToString();
+                            if (_operands.Count == 2 && string.IsNullOrWhiteSpace(_operands[1]))
+                            {
+                                _operands[0] = (double.Parse(_operands[0]) + double.Parse(_operands[0])).ToString();
+                                SelectedOperation = MathOperation.Addition;
+                                ResultDisplay = _operands[0];
+                            }
+                            else
+                            {
+                                _operands[0] = (double.Parse(_operands[0]) + double.Parse(_operands[1])).ToString();
+                                _operands.RemoveAt(1);
+                                SelectedOperation = MathOperation.None;
+                                ResultDisplay = _operands[0];
+                            }
                             break;
                         case MathOperation.Subtraction:
-                            _leftNumber = MathService.Subtract(_leftNumber, _rightNumber);
-                            ResultDisplay = _leftNumber.ToString();
+                            if (_operands.Count == 2 && string.IsNullOrWhiteSpace(_operands[1]))
+                            {
+                                _operands[0] = (double.Parse(_operands[0]) - double.Parse(_operands[0])).ToString();
+                                SelectedOperation = MathOperation.Subtraction;
+                                ResultDisplay = _operands[0];
+                            }
+                            else
+                            {
+                                _operands[0] = (double.Parse(_operands[0]) - double.Parse(_operands[1])).ToString();
+                                _operands.RemoveAt(1);
+                                SelectedOperation = MathOperation.None;
+                                ResultDisplay = _operands[0];
+                            }
                             break;
                         case MathOperation.Multiplication:
-                            _leftNumber = MathService.Multiply(_leftNumber, _rightNumber);
-                            ResultDisplay = _leftNumber.ToString();
+                            if (_operands.Count == 2 && string.IsNullOrWhiteSpace(_operands[1]))
+                            {
+                                _operands[0] = (double.Parse(_operands[0]) * double.Parse(_operands[0])).ToString();
+                                SelectedOperation = MathOperation.Multiplication;
+                                ResultDisplay = _operands[0];
+                            }
+                            else
+                            {
+                                _operands[0] = (double.Parse(_operands[0]) * double.Parse(_operands[1])).ToString();
+                                _operands.RemoveAt(1);
+                                SelectedOperation = MathOperation.None;
+                                ResultDisplay = _operands[0];
+                            }
                             break;
                         case MathOperation.Division:
-                            if (_rightNumber == 0)
+                            if (_operands.Count == 2 && string.IsNullOrWhiteSpace(_operands[1]))
                             {
-                                _leftNumber = 0;
+                                _operands[0] = (double.Parse(_operands[0]) / double.Parse(_operands[0])).ToString();
+                                SelectedOperation = MathOperation.Division;
+                                ResultDisplay = _operands[0];
+                            }
+                            else if (_operands.Count == 2 && double.Parse(_operands[1]) == 0)
+                            {
+                                _operands = new List<string>();
+                                _operands.Add("0");
+                                SelectedOperation = MathOperation.None;
                                 ResultDisplay = "ERROR";
                             }
                             else
                             {
-                                _leftNumber = MathService.Divide(_leftNumber, _rightNumber);
-                                ResultDisplay = _leftNumber.ToString();
+                                _operands[0] = (double.Parse(_operands[0]) / double.Parse(_operands[1])).ToString();
+                                _operands.RemoveAt(1);
+                                SelectedOperation = MathOperation.None;
+                                ResultDisplay = _operands[0];
                             }
                             break;
                     }
-                    _rightNumber = 0;
-                    SelectedOperation = MathOperation.Nothing;
                     break;
                 case ".":
-                    ResultDisplay = $"{_leftNumber}.";
+                    if (ResultDisplay.Contains(".") == false)
+                    {
+                        ResultDisplay = $"{ResultDisplay}.";
+                    }
                     break;
                 default:
-                    if (int.TryParse(value, out int digit))
+                    if (_operands[^1].Equals(""))
                     {
-                        if (SelectedOperation == MathOperation.Nothing)
-                        {
-                            _leftNumber = double.Parse($"{_leftNumber}{digit}");
-                            ResultDisplay = _leftNumber.ToString();
-                        }
-                        else
-                        {
-                            _rightNumber = double.Parse($"{_rightNumber}{digit}");
-                            ResultDisplay = _rightNumber.ToString();
-                        }
+                        ResultDisplay = double.Parse($"{buttonName}").ToString();
+                        _operands[^1] = ResultDisplay;
                     }
                     else
                     {
-                        ResultDisplay = "ERROR";
-                        SelectedOperation = MathOperation.Nothing;
-                        _leftNumber = 0;
-                        _rightNumber = 0;
+                        ResultDisplay = double.Parse($"{ResultDisplay}{buttonName}").ToString();
+                        _operands[^1] = ResultDisplay;
                     }
                     break;
             }
@@ -214,7 +233,7 @@ namespace WpfCalculator.ViewModels
         /// </summary>
         public enum MathOperation
         {
-            Nothing,
+            None,
             Addition,
             Subtraction,
             Multiplication,
