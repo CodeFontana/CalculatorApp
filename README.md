@@ -39,13 +39,13 @@ https://laurentkempe.com/2019/09/03/WPF-and-dotnet-Generic-Host-with-dotnet-Core
 
 This is an excellent idea, so simple and so elegent, and I've incorporated in this example-- injecting the MainWindow (CalcWindow) and a simple class to use as a 'MathService'. This further allows us to decouple the core mathematical functions, from our user interface. With the MathService injected as a separate component, it can easily be Unit Tested :-) 
 
-Note that this was not possible under the .NET Framework, and that the Generic Host BUilder was introduced in .NET Core 2.1 and newer:  
+Note that this was not possible under the .NET Framework, and that the Generic Host Builder was introduced in .NET Core 2.1 and newer:  
 https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-5.0  
 https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.hostbuilder?view=dotnet-plat-ext-5.0
 
 Thus if you were developing within the .NET Framework and needed to create a project following the MVVM pattern, you were probably more apt to use an open-source framework, which may provide a Dependency Injection system, than go it alone, without any framework.
 
 # Conclusion
-At the time I'm writing this, the only logical conclusion I can draw, stems from the prior section above. If I was developing under the .NET Framework, I probably would be more apt to use an open-source framework, espcially if it provides me easier MVVM with some sort of Dependency Injection system. Thus far the jury is still out on .NET Core and newer, until I gain more experience. I needs to practice more, and intentfully try building the same project, both with and without an added framework, to see what further conclusion I'm able to draw.  
+At the time I'm writing this, the only logical conclusion I can draw, stems from the prior section above. If I was developing under the .NET Framework, I probably would be more apt to use an open-source framework, espcially if it provides me easier MVVM with some sort of Dependency Injection system. Thus far the jury is still out on .NET Core and newer, until I gain more experience. I need to practice more, and intentfully try building the same project, both with and without an added framework, to see what further conclusion(s) I'm able to draw.  
 
 For now, Happy Coding.
