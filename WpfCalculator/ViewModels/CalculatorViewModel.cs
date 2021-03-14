@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WpfCalculator.Models;
 using WpfCalculator.Services;
 using WpfCalculator.ViewModels.Commands;
 
@@ -12,7 +13,7 @@ namespace WpfCalculator.ViewModels
     /// <summary>
     /// ViewModel for the CalculatorWindow View.
     /// </summary>
-    public class CalculatorViewModel : INotifyPropertyChanged
+    public class CalculatorViewModel : ObservableObject
     {
         /// <summary>
         /// Math service provided via the default constructor, courtesy of Dependency Injection.
@@ -57,16 +58,6 @@ namespace WpfCalculator.ViewModels
         /// whenever a button on the calculator is pressed.
         /// </summary>
         public ButtonCommand CalculatorCommand { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        /// <summary>
-        /// Implementation of INotifyPropertyChanged, for notifying subscribers to property changes.
-        /// </summary>
-        /// <param name="propertyName">Name of the property that has changed</param>
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         /// <summary>
         /// Default constructor, only used in Design-Time mode, to display a sample value
