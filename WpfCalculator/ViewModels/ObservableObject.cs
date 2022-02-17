@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
-namespace WpfCalculator.Models
+namespace WpfCalculator.ViewModels
 {
     /// <summary>
     /// Model for any ViewModel to consume, which provides implementation of INotifyPropertyChanged
