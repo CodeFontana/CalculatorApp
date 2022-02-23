@@ -36,9 +36,9 @@ namespace WpfCalculator
 			_CalcHost = new HostBuilder()
 				.ConfigureServices((context, services) =>
 				{
-					services.AddSingleton<IMathService, MathService>();
-					services.AddSingleton<CalculatorViewModel>();
-					services.AddSingleton<CalculatorWindow>();
+					services.AddTransient<IMathService, MathService>();
+					services.AddTransient<CalculatorViewModel>();
+					services.AddTransient<CalculatorWindow>();
 				})
 				.Build();
 
