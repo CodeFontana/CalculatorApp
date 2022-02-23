@@ -7,7 +7,7 @@ namespace WpfCalculator.ViewModels
     /// <summary>
     /// ViewModel for the CalculatorWindow View.
     /// </summary>
-    public class CalculatorViewModel : ObservableObject
+    public class CalculatorViewModel : ViewModelBase
     {
         /// <summary>
         /// Math service provided via the default constructor, courtesy of Dependency Injection.

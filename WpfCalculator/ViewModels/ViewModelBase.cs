@@ -7,7 +7,7 @@ namespace WpfCalculator.ViewModels
     /// for observable property changes. Having this as a standalone class drys up the code in a
     /// scenario where multiple View-Models have 'observable' property changes.
     /// </summary>
-    public class ObservableObject : INotifyPropertyChanged
+    public class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         /// <summary>
