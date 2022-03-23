@@ -5,7 +5,7 @@ This project serves as a introductory implementation of the MVVM design pattern.
 So many instructional videos (paid or free) demonstrate implementing MVVM using a framework, e.g. Caliburn Micro, MVVMLight, Prism, ReactiveUI, etc. While I don't doubt these frameworks are beneficial, the problem for me is they seem to work like *magic*. And when magic breaks or doesn't work properly, now I'm up some kind of creek. For me it's about understanding and appreciating the design pattern, before exploring any fancy frameworks to help automate things.
 
 # Courses that don't use a fancy MVVM framework to demonstrate MVVM
-SingletonSean on YouTube: https://www.youtube.com/playlist?list=PLA8ZIAm2I03hS41Fy4vFpRw8AdYNBXmNm
+SingletonSean on YouTube: https://www.youtube.com/playlist?list=PLA8ZIAm2I03hS41Fy4vFpRw8AdYNBXmNm  
 Eduardo Rosas on Udemy: https://www.udemy.com/course/windows-presentation-foundation-masterclass/
 
 # Understanding MVVM in WPF
