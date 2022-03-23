@@ -33,7 +33,7 @@ None of them! Data Access should be performed in a separate Class Library projec
 # .NET Generic Host
 An essential component for facilitating MVVM in any project. Perhaps one day Microsoft will refresh all their non-ASP.NET project templates to be based upon the Generic Host model. This means Console, Desktop and Background Service projects should all have introductory templates revolving around the Generic Host Builder.
 
-Refer to my start templates at: https://github.com/CodeFontana/CSharpProjectTemplates
+Refer to my project starter templates at: https://github.com/CodeFontana/CSharpProjectTemplates
 
 The Microsoft Generic Host provides your app with Startup Configuration, Logging and Dependency Injection container. I strongly recommend Tim Corey's course on this subject-- https://www.iamtimcorey.com/p/dotnet-core-dependency-injection-in-depth
 
