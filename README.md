@@ -22,8 +22,8 @@ I'm glossing over several more benefits, such as the ability to do Unit Testing 
 This is an EXCELLENT post on WHAT/WHY/WHEN, all about MVVM...  
 https://stackoverflow.com/questions/2653096/why-use-mvvm  
 
-# Sister Project
-For a more complex example of MVVM with WPF, refer to my EverNote clone app: https://github.com/CodeFontana/EvernoteApp
+# Sister Project - A More Comprehensive MVVM Example
+For a more comprehensive example of MVVM with WPF, refer to my EverNote clone app: https://github.com/CodeFontana/EvernoteApp
 
 This project includes integrating the Microsoft Generic Host, WPF Navigation, Service Injection, etc. It was based on the Udemy course by Eduardo Rosas, but built upon by subjects from SingletonSean's Youtube Playlist, and built upon the Microsoft Generic Host inspired by the Tim Corey course on Dependency Injection.
 
