@@ -35,7 +35,7 @@ An essential component for facilitating MVVM in any project. Perhaps one day Mic
 
 Refer to my project starter templates at: https://github.com/CodeFontana/CSharpProjectTemplates
 
-The Microsoft Generic Host provides your app with Startup Configuration, Logging and Dependency Injection container. I strongly recommend Tim Corey's course on this subject-- https://www.iamtimcorey.com/p/dotnet-core-dependency-injection-in-depth
+The Microsoft Generic Host provides your app with Startup Configuration, Logging and Dependency Injection container. I strongly recommend Tim Corey's course on this subject: https://www.iamtimcorey.com/p/dotnet-core-dependency-injection-in-depth
 
 Note that this was not possible under the .NET Framework, and that the Generic Host Builder was introduced in .NET Core 2.1 and newer:  https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-6.0
 
