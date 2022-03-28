@@ -5,6 +5,7 @@ This project serves as a introductory implementation of the MVVM design pattern.
 So many instructional videos (paid or free) demonstrate implementing MVVM using a framework, e.g. Caliburn Micro, MVVMLight, Prism, ReactiveUI, etc. While I don't doubt these frameworks are beneficial, the problem for me is they seem to work like *magic*. And when magic breaks or doesn't work properly, now I'm up some kind of creek. For me it's about understanding and appreciating the design pattern, before exploring any fancy frameworks to help automate things.
 
 # Courses that don't use a fancy MVVM framework to demonstrate MVVM
+ToskersCorner on YouTube: https://www.youtube.com/playlist?list=PLKShHgmYjjFw9ubvFuW9yhq0NSUw9wdSr
 SingletonSean on YouTube: https://www.youtube.com/playlist?list=PLA8ZIAm2I03hS41Fy4vFpRw8AdYNBXmNm  
 Eduardo Rosas on Udemy: https://www.udemy.com/course/windows-presentation-foundation-masterclass/
 
@@ -23,9 +24,9 @@ This is an EXCELLENT post on WHAT/WHY/WHEN, all about MVVM...
 https://stackoverflow.com/questions/2653096/why-use-mvvm  
 
 # Sister Project - A More Comprehensive MVVM Example
-For a more comprehensive example of MVVM with WPF, refer to my EverNote clone app: https://github.com/CodeFontana/EvernoteApp
-
-This project includes integrating the Microsoft Generic Host, WPF Navigation, Service Injection, etc. It was based on the Udemy course by Eduardo Rosas, but built upon by subjects from SingletonSean's Youtube Playlist, and built upon the Microsoft Generic Host inspired by the Tim Corey course on Dependency Injection.
+For a more comprehensive example of MVVM with WPF, refer to these projects:  
+EverNote clone app: https://github.com/CodeFontana/EvernoteApp
+Contact Book app: https://github.com/CodeFontana/ContactBookApp
 
 # In which layer of MVVM do I perform my Data Access?
 None of them! Data Access should be performed in a separate Class Library project. Each component of MVVM is about your UI. By performing your Data Access in a Class Library, you maintain modularity and separation of concern.
