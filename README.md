@@ -25,7 +25,7 @@ https://stackoverflow.com/questions/2653096/why-use-mvvm
 
 # Sister Project - A More Comprehensive MVVM Example
 For a more comprehensive example of MVVM with WPF, refer to these projects:  
-EverNote clone app: https://github.com/CodeFontana/EvernoteApp
+EverNote clone app: https://github.com/CodeFontana/EvernoteApp  
 Contact Book app: https://github.com/CodeFontana/ContactBookApp
 
 # In which layer of MVVM do I perform my Data Access?
