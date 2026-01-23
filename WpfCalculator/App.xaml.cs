@@ -25,8 +25,8 @@ public partial class App : Application
 
         await _calcHost.StartAsync();
 
-        var calcWindow = _calcHost.Services.GetService<CalculatorWindow>();
-        calcWindow.DataContext = _calcHost.Services.GetService<CalculatorViewModel>();
+        var calcWindow = _calcHost.Services.GetRequiredService<CalculatorWindow>();
+        calcWindow.DataContext = _calcHost.Services.GetRequiredService<CalculatorViewModel>();
         calcWindow.Show();
     }
 

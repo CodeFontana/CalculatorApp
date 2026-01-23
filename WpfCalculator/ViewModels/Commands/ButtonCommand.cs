@@ -18,21 +18,13 @@ namespace WpfCalculator.ViewModels.Commands
             remove { CommandManager.RequerySuggested -= value; }
         }
 
-        public bool CanExecute(object parameter)
-        {
-            string buttonCmd = parameter as string;
-
-            if (string.IsNullOrWhiteSpace(buttonCmd))
-            {
-                return false;
-            }
-
-            return true;
-        }
+        public bool CanExecute(object parameter) => parameter is string s && !string.IsNullOrWhiteSpace(s);
 
         public void Execute(object parameter)
         {
-            string buttonCmd = parameter as string;
+            if (parameter is not string buttonCmd || string.IsNullOrWhiteSpace(buttonCmd))
+                return;
+
             _calculatorViewModel.ButtonPress(buttonCmd);
         }
     }
