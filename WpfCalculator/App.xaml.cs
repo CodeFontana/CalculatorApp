@@ -9,33 +9,52 @@ namespace WpfCalculator;
 
 public partial class App : Application
 {
-    private IHost _calcHost;
+    private IHost? _calcHost;
 
     protected override async void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
 
-        _calcHost = new HostBuilder()
-            .ConfigureServices((context, services) =>
-            {
-                services.AddTransient<CalculatorViewModel>();
-                services.AddTransient<CalculatorWindow>();
-            })
-            .Build();
+        try
+        {
+            _calcHost = new HostBuilder()
+                .ConfigureServices((context, services) =>
+                {
+                    services.AddTransient<CalculatorViewModel>();
+                    services.AddTransient<CalculatorWindow>();
+                })
+                .Build();
 
-        await _calcHost.StartAsync();
+            await _calcHost.StartAsync();
 
-        var calcWindow = _calcHost.Services.GetRequiredService<CalculatorWindow>();
-        calcWindow.DataContext = _calcHost.Services.GetRequiredService<CalculatorViewModel>();
-        calcWindow.Show();
+            CalculatorWindow calcWindow = _calcHost.Services.GetRequiredService<CalculatorWindow>();
+            calcWindow.DataContext = _calcHost.Services.GetRequiredService<CalculatorViewModel>();
+            calcWindow.Show();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Failed to start application: {ex.Message}", "Startup Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            Shutdown(-1);
+        }
     }
 
     protected override async void OnExit(ExitEventArgs e)
     {
-        using (_calcHost)
+        if (_calcHost is not null)
         {
-            await _calcHost.StopAsync(TimeSpan.FromSeconds(5));
+            try
+            {
+                using (_calcHost)
+                {
+                    await _calcHost.StopAsync(TimeSpan.FromSeconds(5));
+                }
+            }
+            catch
+            {
+                // Swallow shutdown failures so they don't mask the real exit reason.
+            }
         }
+
         base.OnExit(e);
     }
 }
